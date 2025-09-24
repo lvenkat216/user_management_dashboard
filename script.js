@@ -119,3 +119,93 @@ function showToast(message, duration = 3000) {
         toast.classList.remove("show");
     }, duration);
 }
+
+tableBody.addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+
+  const row = btn.closest("tr");
+  if (!row) return;
+
+  const id = row.children[0].textContent.trim();
+  const firstName = row.children[1].textContent.trim();
+  const lastName = row.children[2].textContent.trim();
+  const email = row.children[3].textContent.trim();
+  const company = row.children[4].textContent.trim();
+
+  if (btn.textContent.trim() === "Edit") {
+    const editModal = document.getElementById("editUserModal");
+    editModal.style.display = "block";
+
+    document.getElementById("editFirstName").value = firstName;
+    document.getElementById("editLastName").value = lastName;
+    document.getElementById("editEmail").value = email;
+    document.getElementById("editCompany").value = company;
+
+    const editForm = document.getElementById("editUserForm");
+    editForm.onsubmit = async (ev) => {
+      ev.preventDefault();
+
+      const uFirst = document.getElementById("editFirstName").value.trim();
+      const uLast = document.getElementById("editLastName").value.trim();
+      const uEmail = document.getElementById("editEmail").value.trim();
+      const uCompany = document.getElementById("editCompany").value.trim() || "N/A";
+
+      if (!uFirst || !uLast || !uEmail) {
+        showToast("Please fill all required fields.");
+        return;
+      }
+
+      try {
+        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: Number(id),
+            name: `${uFirst} ${uLast}`,
+            email: uEmail,
+            company: { name: uCompany },
+          }),
+        });
+
+        row.children[1].textContent = uFirst;
+        row.children[2].textContent = uLast;
+        row.children[3].textContent = uEmail;
+        row.children[4].textContent = uCompany;
+
+        showToast("User updated successfully!");
+        editModal.style.display = "none";
+      } catch (err) {
+        console.error("Edit failed:", err);
+        showToast("Failed to update user.");
+      }
+    };
+
+    document.querySelector(".editCancelBtn").onclick = () => {
+      editModal.style.display = "none";
+    };
+  }
+
+  if (btn.textContent.trim() === "Delete") {
+    const deleteModal = document.getElementById("deleteUserModal");
+    deleteModal.style.display = "block";
+
+    document.getElementById("confirmDeleteBtn").onclick = async () => {
+      try {
+        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+          method: "DELETE",
+        });
+        row.remove();
+        showToast("User deleted successfully!");
+        deleteModal.style.display = "none";
+      } catch (err) {
+        console.error("Delete failed:", err);
+        showToast("Failed to delete user.");
+      }
+    };
+
+    document.getElementById("cancelDeleteBtn").onclick = () => {
+      deleteModal.style.display = "none";
+    };
+  }
+});

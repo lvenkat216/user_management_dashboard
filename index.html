@@ -60,10 +60,44 @@
         </form>
     </div>
     </div>
+    
+    <div id="editUserModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('editUserModal').style.display='none'">&times;</span>
+        <h2>Edit User</h2>
+        <form id="editUserForm">
+        <label for="editFirstName">First Name</label>
+        <input id="editFirstName" required>
+
+        <label for="editLastName">Last Name</label>
+        <input id="editLastName" required>
+
+        <label for="editEmail">Email</label>
+        <input id="editEmail" type="email" required>
+
+        <label for="editCompany">Company</label>
+        <input id="editCompany">
+
+        <div class="form-buttons">
+            <button type="submit" class="addBtnModal">Save</button>
+            <button type="button" class="cancelBtn editCancelBtn">Cancel</button>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <div id="deleteUserModal" class="modal">
+    <div class="modal-content">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete this user?</p>
+        <div class="form-buttons">
+        <button id="confirmDeleteBtn" class="cancelBtn">Delete</button>
+        <button id="cancelDeleteBtn" class="addBtnModal">Cancel</button>
+        </div>
+    </div>
+    </div>
 
     <div id="toast" class="toast"></div>
 
     <script src="script.js"></script>
 </body>
-
-

@@ -209,3 +209,21 @@ tableBody.addEventListener("click", (e) => {
     };
   }
 });
+
+const searchInput = document.querySelector(".search-bar");
+
+searchInput.addEventListener("input", () => {
+  const filter = searchInput.value.toLowerCase();
+  const rows = tableBody.querySelectorAll("tr");
+
+  rows.forEach(row => {
+    const cells = row.querySelectorAll("td");
+    const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(" ");
+    
+    if (rowText.includes(filter)) {
+      row.style.display = ""; 
+    } else {
+      row.style.display = "none";
+    }
+  });
+});

@@ -36,6 +36,33 @@
         </div>
     </div>
 
+    <div id="addUserModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New User</h2>
+        <form id="addUserForm">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company">
+
+        <div class="form-buttons">
+            <button type="submit" class="addBtnModal">Add</button>
+            <button type="button" class="cancelBtn">Cancel</button>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
     <script src="script.js"></script>
 </body>
 

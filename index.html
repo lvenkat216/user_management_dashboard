@@ -97,6 +97,32 @@
     </div>
     </div>
 
+    <!-- Filter Modal -->
+    <div id="filterModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('filterModal').style.display='none'">&times;</span>
+        <h2>Filter Users</h2>
+        <form id="filterForm">
+        <label for="filterFirstName">First Name</label>
+        <input type="text" id="filterFirstName">
+
+        <label for="filterLastName">Last Name</label>
+        <input type="text" id="filterLastName">
+
+        <label for="filterEmail">Email</label>
+        <input type="text" id="filterEmail">
+
+        <label for="filterCompany">Company</label>
+        <input type="text" id="filterCompany">
+
+        <div class="form-buttons">
+            <button type="submit" class="addBtnModal">Apply</button>
+            <button type="button" class="cancelBtn filterCancelBtn">Cancel</button>
+        </div>
+        </form>
+    </div>
+    </div>
+
     <div id="toast" class="toast"></div>
 
     <script src="script.js"></script>

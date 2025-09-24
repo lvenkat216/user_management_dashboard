@@ -227,3 +227,51 @@ searchInput.addEventListener("input", () => {
     }
   });
 });
+
+const filterBtn = document.querySelector(".filter");
+const filterModal = document.getElementById("filterModal");
+const filterForm = document.getElementById("filterForm");
+const filterCancelBtn = document.querySelector(".filterCancelBtn");
+
+filterBtn.addEventListener("click", () => {
+  filterModal.style.display = "block";
+});
+
+filterCancelBtn.addEventListener("click", () => filterModal.style.display = "none");
+
+window.addEventListener("click", (e) => {
+  if (e.target === filterModal) filterModal.style.display = "none";
+});
+
+filterForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const fName = document.getElementById("filterFirstName").value.trim().toLowerCase();
+  const lName = document.getElementById("filterLastName").value.trim().toLowerCase();
+  const email = document.getElementById("filterEmail").value.trim().toLowerCase();
+  const company = document.getElementById("filterCompany").value.trim().toLowerCase();
+
+  const rows = tableBody.querySelectorAll("tr");
+
+  rows.forEach(row => {
+    const cells = row.querySelectorAll("td");
+    const rowFirst = (cells[1]?.textContent || "").toLowerCase();
+    const rowLast = (cells[2]?.textContent || "").toLowerCase();
+    const rowEmail = (cells[3]?.textContent || "").toLowerCase();
+    const rowCompany = (cells[4]?.textContent || "").toLowerCase();
+
+    if (
+      (fName && !rowFirst.includes(fName)) ||
+      (lName && !rowLast.includes(lName)) ||
+      (email && !rowEmail.includes(email)) ||
+      (company && !rowCompany.includes(company))
+    ) {
+      row.style.display = "none";
+    } else {
+      row.style.display = "";
+    }
+  });
+
+  filterModal.style.display = "none";
+  showToast("Filter applied!");
+});
